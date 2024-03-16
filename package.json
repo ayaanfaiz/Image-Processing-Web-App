@@ -1,0 +1,21 @@
+{
+  "name": "image-processing-web-app",
+  "version": "1.0.0",
+  "description": "Web App to process image ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.3",
+    "typescript": "^5.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "jasmine": "^5.1.0",
+    "jasmine-ts": "^0.4.0",
+    "prettier": "^3.2.5"
+  }
+}
