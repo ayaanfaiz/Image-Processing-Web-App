@@ -36,11 +36,6 @@ app.get("/image", (request, response) => {
   }
 });
 
-app.use(express.static("client"))
-
-// app.get("/", (request, response) => {
-//   console.log("here");
-//   response.sendFile(path.join(__dirname, "/../app/"));
-// });
+app.use(express.static("src/client"))
 
 export default app;
