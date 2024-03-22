@@ -1,8 +1,6 @@
 import express from "express";
 import sharp from "sharp";
 import fs from "fs";
-import bodyParser from "body-parser";
-import cors from 'cors';
 
 // Types
 import { ReadFileReturn } from "./types";
@@ -12,13 +10,6 @@ import { readFile } from "./utils";
 import path from "path";
 
 const app = express();
-
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
-
-app.use(express.static("../client"));
-
-app.use(cors());
 
 app.get("/image", (request, response) => {
   const {
@@ -45,9 +36,11 @@ app.get("/image", (request, response) => {
   }
 });
 
+app.use(express.static("client"))
+
 // app.get("/", (request, response) => {
 //   console.log("here");
-//   response.sendFile(path.join(__dirname, "/../client/"));
+//   response.sendFile(path.join(__dirname, "/../app/"));
 // });
 
 export default app;
