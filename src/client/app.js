@@ -1,1 +1,3 @@
-console.log('in app.js, thanks');
+document.addEventListener("DOMContentLoaded", () => {
+    console.log('hi')
+})

@@ -1,6 +1,7 @@
-import express from "express";
+import express, { response } from "express";
 import sharp from "sharp";
 import fs from "fs";
+import multer from "multer";
 
 // Types
 import { ReadFileReturn } from "./types";
@@ -10,6 +11,32 @@ import { readFile } from "./utils";
 import path from "path";
 
 const app = express();
+const upload = multer({ dest: 'uploads/' })
+
+const imageStorage = multer.diskStorage({
+    // Destination to store image     
+    destination: 'images', 
+      filename: (req, file, cb) => {
+          cb(null, file.fieldname + '_' + Date.now() 
+             + path.extname(file.originalname))
+            // file.fieldname is name of the field (image)
+            // path.extname get the uploaded file extension
+    }
+});
+
+const imageUpload = multer({
+    storage: imageStorage,
+    limits: {
+      fileSize: 1000000 // 1000000 Bytes = 1 MB
+    },
+    fileFilter(req, file, cb) {
+      if (!file.originalname.match(/\.(png|jpg)$/)) { 
+         // upload only png and jpg format
+         return cb(new Error('Please upload a Image'))
+       }
+     cb(null, true)
+  }
+}) 
 
 app.get("/image", (request, response) => {
   const {
@@ -35,6 +62,11 @@ app.get("/image", (request, response) => {
     response.end();
   }
 });
+
+app.post("/profile", imageUpload.single('avatar'), (req, res) => {
+    console.log(req);
+    res.end();
+})
 
 app.use(express.static("src/client"))
 
