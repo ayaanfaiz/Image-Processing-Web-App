@@ -1,0 +1,10 @@
+#fileList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    li {
+        padding: 20px;
+        list-style-type: none;
+    }
+}
