@@ -8,6 +8,6 @@
       }
     ],
     "spec_dir": "spec",
-    "spec_files": ["**/*[sS]pec.ts"]
+    "spec_files": ["**/*[sS]pec.js"]
   }
   

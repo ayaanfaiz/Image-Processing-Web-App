@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.readFile = exports.removeFileExtensionIfExists = exports.imageFileSource = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-exports.imageFileSource = path_1.default.resolve(__dirname, "./images");
+exports.imageFileSource = path_1.default.resolve("images");
 const removeFileExtensionIfExists = (fileName) => {
     const fileExtensions = [".jpg", ".png"];
     if (fileName.length) {
@@ -21,13 +21,13 @@ const removeFileExtensionIfExists = (fileName) => {
 exports.removeFileExtensionIfExists = removeFileExtensionIfExists;
 const readFile = (fileName) => {
     if (fileName) {
-        const modifiedFileName = (0, exports.removeFileExtensionIfExists)(fileName);
+        // const modifiedFileName = removeFileExtensionIfExists(fileName);
         try {
-            const filePath = `${exports.imageFileSource}/${modifiedFileName}.jpg`;
+            const filePath = `${exports.imageFileSource}/${fileName}`;
             const imageFromFile = fs_1.default.readFileSync(filePath);
             if (imageFromFile) {
                 console.log("File read successful");
-                return { filePath, fileReadStatus: true, fileName: modifiedFileName };
+                return { filePath, fileReadStatus: true, fileName: fileName };
             }
         }
         catch (err) {

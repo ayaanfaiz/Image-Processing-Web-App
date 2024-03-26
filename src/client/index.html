@@ -1,22 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <title>Image Processing</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<head>
-  <title>Image Processing</title>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="styles.css">
-</head>
+  <body>
+    <div class="app">
+      <div class="header">
+        <h1>Image Processing App</h1>
+        <h5>
+          Change the height and width of the image by simply uploading it and
+          entering the required height and width of the image
+        </h5>
+      </div>
+      <label for="fileSelector" class="custom-file-upload">
+        Select file to upload
+      </label>
+      <input
+        type="file"
+        name="avatar"
+        id="fileSelector"
+        accept="image/png, image/gif, image/jpeg"
+      />
+      <ul id="fileList"></ul>
+      <div class="details-form">
+        <div>
+          <input
+            type="number"
+            id="width"
+            placeholder="height"
+            class="details-input"
+            required
+          />
+          <input
+            type="number"
+            id="height"
+            placeholder="width"
+            class="details-input"
+            required
+          />
+        </div>
+        <input type="submit" id="submit" class="submit-button" />
+      </div>
+    </div>
 
-<body>
-  <!-- <form action="/profile" method="post" enctype="multipart/form-data" id="form"> -->
-  <input type="file" name="avatar" id="fileSelector" />
-  <ul id="fileList"></ul>
-  <input type="number" id="width" placeholder="width" />
-  <input type="number" id="height" placeholder="height" />
-  <input type="submit" id="submit">
-  <!-- </form> -->
-
-  <script src="app.js" type="text/javascript"></script>
-</body>
-
+    <script src="app.js" type="text/javascript"></script>
+  </body>
 </html>
