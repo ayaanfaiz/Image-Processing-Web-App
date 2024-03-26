@@ -4,9 +4,11 @@
   "description": "Web App to process image ",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "npm run build && jest --forceExit",
     "build": "rm -rf build && tsc",
-    "start": "nodemon src/server/index.ts"
+    "start": "nodemon src/server/index.ts",
+    "prettier": "npx prettier --write .",
+    "lint": "eslint . --ext .ts"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +28,7 @@
     "@types/multer": "^1.4.11",
     "@types/sharp": "^0.32.0",
     "@types/supertest": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
     "eslint": "^8.57.0",
     "jasmine": "^5.1.0",
     "jasmine-ts": "^0.4.0",

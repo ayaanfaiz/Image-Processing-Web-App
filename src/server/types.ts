@@ -1,6 +1,5 @@
 export type ReadFileReturn = {
-    filePath?: string;
-    fileReadStatus: boolean;
-    fileName?: string;
-  };
-  
+  filePath?: string;
+  fileReadStatus: boolean;
+  fileName?: string;
+};

@@ -86,7 +86,7 @@ submitButton.addEventListener("click", () => {
   if (missingImageSpan) {
     missingImageSpan.remove();
   }
-  if (selectedImage === '') {
+  if (selectedImage === "") {
     const missingData = document.createElement("span");
     missingData.textContent = "Please select an image";
     missingData.id = "missingImage";

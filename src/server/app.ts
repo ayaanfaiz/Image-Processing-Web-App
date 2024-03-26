@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import sharp from "sharp";
 import fs from "fs";
 import multer from "multer";
@@ -11,32 +11,33 @@ import { readFile } from "./utils";
 import path from "path";
 
 const app = express();
-const upload = multer({ dest: 'uploads/' })
 
 const imageStorage = multer.diskStorage({
-  // Destination to store image     
-  destination: 'images',
+  // Destination to store image
+  destination: "images",
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + '_' + Date.now()
-      + path.extname(file.originalname))
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname),
+    );
     // file.fieldname is name of the field (image)
     // path.extname get the uploaded file extension
-  }
+  },
 });
 
 const imageUpload = multer({
   storage: imageStorage,
   limits: {
-    fileSize: 10000000 // 10000000 Bytes = 10 MB
+    fileSize: 10000000, // 10000000 Bytes = 10 MB
   },
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(png|jpg)$/)) {
       // upload only png and jpg format
-      return cb(new Error('Please upload a Image'))
+      return cb(new Error("Please upload a Image"));
     }
-    cb(null, true)
-  }
-})
+    cb(null, true);
+  },
+});
 
 app.get("/image", (request, response) => {
   const {
@@ -52,14 +53,12 @@ app.get("/image", (request, response) => {
         console.log("file resize success");
         const readStream = fs.createReadStream(convertedImagePath);
         readStream.pipe(response);
-        // console.log(convertedImagePath)
-        // response.send(convertedImagePath)
       })
       .catch((error) => {
         console.log("file resize failed", error);
         response.status(500).send({
-            message: 'Failed to resize image'
-        })
+          message: "Failed to resize image",
+        });
       });
   } else {
     console.log("File Read Failed");
@@ -67,44 +66,44 @@ app.get("/image", (request, response) => {
   }
 });
 
-app.post("/profile", imageUpload.single('avatar'), (req, res) => {
+app.post("/profile", imageUpload.single("avatar"), (req, res) => {
   res.end();
 });
 
 app.get("/gallery", (req, res) => {
-  const directoryPath = 'images';
+  const directoryPath = "images";
 
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
-      console.error('Error reading directory:', err);
-      res.status(500).send('Internal Server Error');
+      console.error("Error reading directory:", err);
+      res.status(500).send("Internal Server Error");
       return;
     }
-    const originalFiles = files.filter((file) => !file.includes('resized'));
-    const fileData = originalFiles.map(file => {
+    const originalFiles = files.filter((file) => !file.includes("resized"));
+    const fileData = originalFiles.map((file) => {
       return {
         name: file,
-        imageUrl: `/images/${file}` // Assuming images are stored in an 'images' directory
+        imageUrl: `/images/${file}`, // Assuming images are stored in an 'images' directory
       };
     });
 
     res.json(fileData);
   });
-})
+});
 
-app.get('/images/:filename', (req, res) => {
-  const imagePath = path.join('images', req.params.filename);
+app.get("/images/:filename", (req, res) => {
+  const imagePath = path.join("images", req.params.filename);
   fs.readFile(imagePath, (err, data) => {
     if (err) {
-      console.error('Error reading image:', err);
-      res.status(500).send('Internal Server Error');
+      console.error("Error reading image:", err);
+      res.status(500).send("Internal Server Error");
       return;
     }
-    res.writeHead(200, { 'Content-Type': 'image/png' }); // Adjust content type according to your image type
+    res.writeHead(200, { "Content-Type": "image/png" }); // Adjust content type according to your image type
     res.end(data);
   });
 });
 
-app.use(express.static("src/client"))
+app.use(express.static("src/client"));
 
 export default app;
